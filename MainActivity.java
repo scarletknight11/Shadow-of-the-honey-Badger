@@ -37,7 +37,42 @@ private Uri fileUri;
 protected void onCreate(Bundle savedInstanceState) {
 super.onCreate(savedInstanceState);
 setContentView(R.layout.activity_main);
+Button button1 = (Button) findViewById(R.id.scanner);
+
+button1.setOnClickListener(new OnClickListener(){
+
+	 
+	public void onClick(View v) {
+		 Intent i = new Intent(MainActivity.this, Create.class);
+		 startActivity(i);
+	}
+	});
+
+Button button2 = (Button) findViewById(R.id.scanner2);
+
+button2.setOnClickListener(new OnClickListener(){
+
+	 
+	public void onClick(View v) {
+		 Intent i = new Intent(MainActivity.this, First.class);
+		 startActivity(i);
+	}
+	});
+
+ 
+Button button3 = (Button) findViewById(R.id.scanner3);
+
+button3.setOnClickListener(new OnClickListener(){
+
+	 
+	public void onClick(View v) {
+		 Intent i = new Intent(MainActivity.this, ViewOption.class);
+		 startActivity(i);
+	}
+	});
+
 }
+
 @Override
 public boolean onCreateOptionsMenu(Menu menu) {
     MenuInflater inflater = getMenuInflater();
@@ -52,7 +87,7 @@ public boolean onOptionsItemSelected(MenuItem item){
 	case R.id.Create:
 		CreateMenuItem();
 		break;
-	case R.id.scan:
+	case R.id.scan1:
 		scanMenuItem();
 		break;
 	case R.id.View:
@@ -76,133 +111,32 @@ private void CreateMenuItem(){
 }
  
 private void scanMenuItem(){
-	try{
-		Intent intent = new Intent(ACTION_SCAN);
-		intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
-		startActivityForResult(intent, 0);
-	}catch (ActivityNotFoundException e){
-		showDialog(MainActivity.this, "No Scanner Found", 
-"Download a scanner code activity?", "Yes", "No").show();
-	}
-}
+	setContentView(R.layout.activity_main);
+	Button button4 = (Button) findViewById(R.id.scan1);
 
+	button4.setOnClickListener(new OnClickListener(){
+
+		 
+		public void onClick(View v) {
+			 Intent i = new Intent(MainActivity.this, ScanOptions.class);
+			 startActivity(i);
+		}
+		});
+
+	}
+	
 private void ViewMenuItem(){
 	new AlertDialog.Builder(this)
 	.setTitle("View")
 	.setMessage("This is a  dialog")
 	.setNeutralButton("OK", new DialogInterface.OnClickListener() {
 		
-		@Override
-		public void onClick(DialogInterface dialog, int which) {
+@Override
+public void onClick(DialogInterface dialog, int which) {
 			// TODO Auto-generated method stub
 			
-		}
-	}).show();
-}
-
-	public void scanBar(View v){
-		try{
-			Intent intent = new Intent(ACTION_SCAN);
-			intent.putExtra("SCAN_MODE", "PRODUCT_MODE");
-			startActivityForResult(intent, 0);
-		}catch (ActivityNotFoundException e){
-			showDialog(MainActivity.this, "No Scanner Found", 
-		"Download a scanner code activity?", "Yes", "No").show();
-		
-		}
-		
-		
-	}
-	
-	public void scanQR(View v){
-		try{
-			Intent intent = new Intent(ACTION_SCAN);
-			intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
-			startActivityForResult(intent, 0);
-		}catch (ActivityNotFoundException e){
-			showDialog(MainActivity.this, "No Scanner Found", 
-	"Download a scanner code activity?", "Yes", "No").show();
-		}
-	} 
-	
-	public void Camera(View v){
-		try{
-		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		//fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
-		intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-		startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-		}catch (ActivityNotFoundException e){
-			 
-		}
-	}
-
-	private static AlertDialog showDialog(final Activity act,
-			CharSequence title, CharSequence message, 
-			CharSequence buttonYes,
-			CharSequence buttonNo) {
-		
-	AlertDialog.Builder dowloadDialog = new AlertDialog.Builder(act);
-	dowloadDialog.setTitle(title).setMessage(message).setPositiveButton(buttonYes, new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				Uri uri = Uri.parse("market://search?q=pname:" +
-			"com.google.zxing.client.android");
-				
-				Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-				try{
-					act.startActivity(intent);
-				} catch(ActivityNotFoundException e){
-		
-				}
-				
 			}
-}).setNegativeButton(buttonNo, new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				 
-				
-			}
-		});
-		
-		return dowloadDialog.show();
-		
-	}
-	
-	protected void onActivityResult1(int requestCode, int resultCode, Intent data) {
-		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
-	        if (resultCode == RESULT_OK) {
-	            // Image captured and saved to fileUri specified in the Intent
-	            Toast.makeText(this, "Image saved to:\n" +
-	                     data.getData(), Toast.LENGTH_LONG).show();
-	        } else if (resultCode == RESULT_CANCELED) {
-	            // User cancelled the image capture
-	        	  
-	        } else {
-	            // Image capture failed, advise user
-	        }
-	    }
-	}
-	
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent intent){
-		if(requestCode == 0){
-			if(resultCode == RESULT_OK){
-				String contents = intent.getStringExtra("SCAN_RESULT");
-				String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
-				Toast.makeText(this, "Content:" + contents + "Format:" + format,
-						Toast.LENGTH_LONG).show();
-				 
-			} else if (resultCode == RESULT_CANCELED) {
-                // Handle cancel
-                Toast toast = Toast.makeText(this, "Scan was Cancelled!", Toast.LENGTH_LONG);
-                toast.setGravity(Gravity.TOP, 25, 400);
-                toast.show();
-                
-			}
-		}
+		}).show();
 	}
 }
-	
 	
