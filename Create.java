@@ -1,43 +1,77 @@
- 
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.ActivityNotFoundException;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.provider.MediaStore;
-import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
+    import android.app.AlertDialog;
+    import android.content.DialogInterface;
+    import android.os.Bundle;
+    import android.view.View;
+    import android.widget.Button;
+    import android.widget.Toast;
 
-public class Create extends Activity {
+    import java.io.FileInputStream;
+    import java.io.FileOutputStream;
+    import java.io.InputStreamReader;
+    import java.io.OutputStreamWriter;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_create);
-	}
+    import android.app.Activity;
+    import android.os.Bundle;
+    import android.view.View;
+    import android.widget.EditText;
+    import android.widget.Toast;
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.create, menu);
-		return true;
-	}
+    public class Create extends Activity {
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-}
+        EditText textmsg;
+        static final int READ_BLOCK_SIZE = 100;
+
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_create);
+
+            textmsg=(EditText)findViewById(R.id.editText1);
+        }
+
+        // write text to file
+        public void WriteBtn(View v) {
+            // add-write text into file
+            try {
+                FileOutputStream fileout=openFileOutput("mytextfile.txt", MODE_PRIVATE);
+                OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
+                outputWriter.write(textmsg.getText().toString());
+                outputWriter.close();
+
+                //display file saved message
+                Toast.makeText(getBaseContext(), "File saved successfully!",
+                Toast.LENGTH_SHORT).show();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }   
+        }
+
+        // Read text from file
+        public void ReadBtn(View v) {
+            //reading text from file
+            try {
+                FileInputStream fileIn=openFileInput("mytextfile.txt");
+                InputStreamReader InputRead= new InputStreamReader(fileIn);
+
+                char[] inputBuffer= new char[READ_BLOCK_SIZE];
+                String s="";
+                int charRead;
+
+                while ((charRead=InputRead.read(inputBuffer))>0) {
+                    // char to string conversion
+                    String readstring=String.copyValueOf(inputBuffer,0,charRead);
+                    s +=readstring;                 
+                }
+                InputRead.close();
+                Toast.makeText(getBaseContext(), s,Toast.LENGTH_SHORT).show();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
