@@ -1,3 +1,5 @@
+package com.example.medbox;
+
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -138,10 +140,13 @@ public class First extends Activity {
 			if(resultCode == RESULT_OK){
 				String contents = intent.getStringExtra("SCAN_RESULT");
 				String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
+				String apioutpan = "https://api.outpan.com/v2/products/" + contents+ "?apikey=139c8752bc1213a618d987b8195422d3";  
+
 				Toast.makeText(this, "Content:" + contents + "Format:" + format,
-						Toast.LENGTH_LONG).show();
-				 
-			} else if (resultCode == RESULT_CANCELED) {
+				Toast.LENGTH_LONG).show();
+				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(apioutpan));
+				startActivity(browserIntent);
+	} else if (resultCode == RESULT_CANCELED) {
                 // Handle cancel
                 Toast toast = Toast.makeText(this, "Scan was Cancelled!", Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.TOP, 25, 400);
@@ -151,4 +156,3 @@ public class First extends Activity {
 		}
 	}
 }
-
