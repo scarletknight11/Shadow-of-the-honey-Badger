@@ -1,4 +1,3 @@
-import com.example.Caregiver.R;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
@@ -31,12 +30,12 @@ static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 static final String ACTION_SCAN = "com.google.zxing.client.android.SCAN";
 private Uri fileUri;
 
-
-
 @Override
 protected void onCreate(Bundle savedInstanceState) {
 super.onCreate(savedInstanceState);
 setContentView(R.layout.activity_main);
+
+//takes you to Create options
 Button button1 = (Button) findViewById(R.id.scanner);
 
 button1.setOnClickListener(new OnClickListener(){
@@ -48,7 +47,8 @@ button1.setOnClickListener(new OnClickListener(){
 	}
 	});
 
-Button button2 = (Button) findViewById(R.id.scanner2);
+//takes you to Scan options
+Button button2 = (Button) findViewById(R.id.scanner1);
 
 button2.setOnClickListener(new OnClickListener(){
 
@@ -59,7 +59,8 @@ button2.setOnClickListener(new OnClickListener(){
 	}
 	});
 
- 
+
+//takes you to View options
 Button button3 = (Button) findViewById(R.id.scanner3);
 
 button3.setOnClickListener(new OnClickListener(){
@@ -83,60 +84,79 @@ public boolean onCreateOptionsMenu(Menu menu) {
 @Override
 public boolean onOptionsItemSelected(MenuItem item){
 	super.onOptionsItemSelected(item);
-	switch(item.getItemId()){
-	case R.id.Create:
+	 
+	
+	
+	int id = item.getItemId();
+	
+	if  (id == R.id.Create){ 
 		CreateMenuItem();
-		break;
-	case R.id.scan1:
+		//Click this Menu button takes you to Create file page
+		setContentView(R.layout.activity_create);
+		Intent intent = new Intent(MainActivity.this, Create.class);
+        startActivity(intent);
+		 
+	}else if (id == R.id.scan){
 		scanMenuItem();
-		break;
-	case R.id.View:
+		//Click this Menu button takes you to Scan Options
+		setContentView(R.layout.activity_first);
+		Intent intent = new Intent(MainActivity.this, First.class);
+        startActivity(intent);
+		 
+	} else if (id == R.id.View){
 		ViewMenuItem();
-		break;
+		//Click this Menu button takes you to View Options
+		setContentView(R.layout.activity_view_option);
+		Intent intent = new Intent(MainActivity.this, ViewOption.class);
+        startActivity(intent);
 	}
 	return true;
+	
+	 
 	}
 private void CreateMenuItem(){
-	new AlertDialog.Builder(this)
-	.setTitle("Create")
-	.setMessage("This is a create dialog")
-	.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-		
-		@Override
-		public void onClick(DialogInterface dialog, int which) {
-			// TODO Auto-generated method stub
+//	new AlertDialog.Builder(this)
+//	.setTitle("Create")
+//	.setMessage("This is a create dialog")
+//	.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+//		
+//		@Override
+//		public void onClick(DialogInterface dialog, int which) {
+//			// TODO Auto-generated method stub
 			
 		}
-	}).show();
-}
+	//}).show();
+//}
  
 private void scanMenuItem(){
-	setContentView(R.layout.activity_main);
-	Button button4 = (Button) findViewById(R.id.scan1);
-
-	button4.setOnClickListener(new OnClickListener(){
-
-		 
-		public void onClick(View v) {
-			 Intent i = new Intent(MainActivity.this, ScanOptions.class);
-			 startActivity(i);
-		}
-		});
+	 
+	
+//	Button button1 = (Button) findViewById(R.id.scan);
+//
+//	button1.setOnClickListener(new OnClickListener(){
+//
+//		 
+//		public void onClick(View v) {
+//			 Intent i = new Intent(MainActivity.this, First.class);
+//			 startActivity(i);
+//		}
+		//});
 
 	}
 	
 private void ViewMenuItem(){
-	new AlertDialog.Builder(this)
-	.setTitle("View")
-	.setMessage("This is a  dialog")
-	.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-		
-@Override
-public void onClick(DialogInterface dialog, int which) {
-			// TODO Auto-generated method stub
-			
-			}
-		}).show();
-	}
+//	new AlertDialog.Builder(this)
+//	.setTitle("View")
+//	.setMessage("This is a  dialog")
+//	.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+//		
+//@Override
+//public void onClick(DialogInterface dialog, int which) {
+//			// TODO Auto-generated method stub
+//			
+//			}
+//		}).show();
+//	}
+}
 }
 	
