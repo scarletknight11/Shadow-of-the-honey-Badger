@@ -1,77 +1,119 @@
-
 import android.app.Activity;
-    import android.app.AlertDialog;
-    import android.content.DialogInterface;
-    import android.os.Bundle;
-    import android.view.View;
-    import android.widget.Button;
-    import android.widget.Toast;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.Toast;
 
-    import java.io.FileInputStream;
-    import java.io.FileOutputStream;
-    import java.io.InputStreamReader;
-    import java.io.OutputStreamWriter;
+public class Create extends Activity {
 
-    import android.app.Activity;
-    import android.os.Bundle;
-    import android.view.View;
-    import android.widget.EditText;
-    import android.widget.Toast;
+/** Called when the activity is first created. */
 
-    public class Create extends Activity {
+@Override
 
-        EditText textmsg;
-        static final int READ_BLOCK_SIZE = 100;
+public void onCreate(Bundle savedInstanceState) {
+
+super.onCreate(savedInstanceState);
+
+setContentView(R.layout.activity_create);
+
+//Click this button. it will take you back to the home pagw
+Button button1 = (Button) findViewById(R.id.Home);
+
+button1.setOnClickListener(new OnClickListener(){
+
+	 
+	public void onClick(View v) {
+		 Intent i = new Intent(Create.this,  MainActivity.class);
+		 startActivity(i);
+		 Toast.makeText(getApplicationContext(),
+				 "You are Home", Toast.LENGTH_LONG)
+		 .show();
+	}
+	});
+
+}
+
+@Override
+
+public boolean onCreateOptionsMenu(Menu menu) {
+
+MenuInflater inflater = getMenuInflater();
+
+inflater.inflate(R.menu.mymenu, menu);
+
+return true;
+
+}
+@Override
+
+public boolean onOptionsItemSelected(MenuItem item) {
+
+switch (item.getItemId()) {
+
+case R.id.open:
+
+showToast("Open Clicked");
+
+return true;
+
+case R.id.savecurrent:
+
+showToast("Save current Clicked");
+
+return true;
+
+case R.id.saveall:
+
+showToast("Save All Clicked");
+
+return true;
+
+case R.id.closecurrent:
+
+showToast("Close current Clicked");
+
+return true;
+
+case R.id.closeall:
+
+showToast("Close all Clicked");
+
+return true;
+
+default:
+
+return super.onOptionsItemSelected(item);
+
+}
+
+}
+
+public void showToast(String message)
+
+{
+
+Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+
+toast.show();
+
+}
+public boolean onCreateOptionsMenu1(Menu menu) {
+
+menu.add(1, 1, 0, "Open the file");
+
+menu.add(1, 2, 1, "Save the file");
+
+menu.add(1, 3, 2, "Close the file");
+
+return true;
+
+}
 
 
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_create);
+}
 
-            textmsg=(EditText)findViewById(R.id.editText1);
-        }
-
-        // write text to file
-        public void WriteBtn(View v) {
-            // add-write text into file
-            try {
-                FileOutputStream fileout=openFileOutput("mytextfile.txt", MODE_PRIVATE);
-                OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
-                outputWriter.write(textmsg.getText().toString());
-                outputWriter.close();
-
-                //display file saved message
-                Toast.makeText(getBaseContext(), "File saved successfully!",
-                Toast.LENGTH_SHORT).show();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }   
-        }
-
-        // Read text from file
-        public void ReadBtn(View v) {
-            //reading text from file
-            try {
-                FileInputStream fileIn=openFileInput("mytextfile.txt");
-                InputStreamReader InputRead= new InputStreamReader(fileIn);
-
-                char[] inputBuffer= new char[READ_BLOCK_SIZE];
-                String s="";
-                int charRead;
-
-                while ((charRead=InputRead.read(inputBuffer))>0) {
-                    // char to string conversion
-                    String readstring=String.copyValueOf(inputBuffer,0,charRead);
-                    s +=readstring;                 
-                }
-                InputRead.close();
-                Toast.makeText(getBaseContext(), s,Toast.LENGTH_SHORT).show();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        }
-    }
