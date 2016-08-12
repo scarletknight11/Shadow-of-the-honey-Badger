@@ -1,6 +1,3 @@
-package com.example.medbox;
-
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
@@ -13,6 +10,8 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.Toast;
 
 public class First extends Activity {
@@ -26,7 +25,24 @@ public class First extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_first);
-	}
+		
+		//Click this it will take you back home
+		Button button1 = (Button) findViewById(R.id.Home);
+
+		button1.setOnClickListener(new OnClickListener(){
+
+			 
+			public void onClick(View v) {
+				 Intent i = new Intent(First.this,  MainActivity.class);
+				 startActivity(i);
+				 Toast.makeText(getApplicationContext(),
+						 "You are Home", Toast.LENGTH_LONG)
+				 .show();
+			}
+			});
+
+		}
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -47,8 +63,7 @@ public class First extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-
-
+//if barcode/qrcodee API is not installed it will ask you for the option to install it
 	public void BarCode(View v){
 		try{
 			Intent intent = new Intent(ACTION_SCAN);
@@ -63,6 +78,7 @@ public class First extends Activity {
 		
 	}
 	
+//if barcode/qrcode API is not installed it will ask you for the option to install it
 	public void QRCode(View v){
 		try{
 			Intent intent = new Intent(ACTION_SCAN);
@@ -73,7 +89,7 @@ public class First extends Activity {
 	"Download a scanner code activity?", "Yes", "No").show();
 		}
 	} 
-	
+//Camera option to take picture of the medicine
 	public void Camera(View v){
 		try{
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -119,6 +135,7 @@ public class First extends Activity {
 		
 	}
 	
+//Click this button it will take you to the option to take a picture	
 	protected void onActivityResult1(int requestCode, int resultCode, Intent data) {
 		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
 	        if (resultCode == RESULT_OK) {
@@ -133,8 +150,12 @@ public class First extends Activity {
 	        }
 	    }
 	}
-	
-	@Override
+
+/*Click this button it will take you to the option to Barcode/QRCode Scan
+ *After a product is scanned it will take you to api.outpan.com/v2/products/ 
+ * From there you will see the name, brand and information of the product that was scanned
+ */
+ 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent){
 		if(requestCode == 0){
 			if(resultCode == RESULT_OK){
