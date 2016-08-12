@@ -1,4 +1,3 @@
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
@@ -11,6 +10,8 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.Toast;
 
 public class ViewOption extends Activity {
@@ -19,6 +20,23 @@ public class ViewOption extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_option);
+		
+		//Click this it will take you back home
+		Button button1 = (Button) findViewById(R.id.Home);
+
+		button1.setOnClickListener(new OnClickListener(){
+
+			 
+			public void onClick(View v) {
+				 Intent i = new Intent(ViewOption.this,  MainActivity.class);
+				 startActivity(i);
+				 Toast.makeText(getApplicationContext(),
+						 "You are Home", Toast.LENGTH_LONG)
+				 .show();
+			}
+			});
+
+		
 	}
 
 	@Override
