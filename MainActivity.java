@@ -1,3 +1,5 @@
+package com.example.medbox;
+ 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
@@ -18,6 +20,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.File;
@@ -33,7 +36,7 @@ private Uri fileUri;
 @Override
 protected void onCreate(Bundle savedInstanceState) {
 super.onCreate(savedInstanceState);
-setContentView(R.layout.activity_main);
+setContentView(R.layout.actvity_mdoifedmain);
 
 //takes you to Create options
 Button button1 = (Button) findViewById(R.id.scanner);
@@ -73,7 +76,18 @@ button3.setOnClickListener(new OnClickListener(){
 	});
 
 }
+public void onCreate1(Bundle savedInstanceState) 
+{ 
+ 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.actvity_mdoifedmain); 
+		ScrollView sView = (ScrollView)findViewById(R.id.ScrollView01); 
+		// Hide the Scollbar 
+		sView.setVerticalScrollBarEnabled(false); 
+		sView.setHorizontalScrollBarEnabled(false);
 
+  }
+
+ 
 @Override
 public boolean onCreateOptionsMenu(Menu menu) {
     MenuInflater inflater = getMenuInflater();
