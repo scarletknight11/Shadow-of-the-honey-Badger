@@ -1,3 +1,6 @@
+package com.example.medbox;
+
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
@@ -12,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 public class First extends Activity {
@@ -50,6 +54,17 @@ public class First extends Activity {
 		getMenuInflater().inflate(R.menu.first, menu);
 		return true;
 	}
+	
+	public void onCreate1(Bundle savedInstanceState) 
+	{ 
+	 		super.onCreate(savedInstanceState);
+			setContentView(R.layout.activity_first); 
+			ScrollView sView = (ScrollView)findViewById(R.id.ScrollView02); 
+			// Hide the Scollbar 
+			sView.setVerticalScrollBarEnabled(false); 
+			sView.setHorizontalScrollBarEnabled(false);
+
+	  }
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
