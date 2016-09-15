@@ -1,3 +1,5 @@
+package com.example.medbox;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 public class Create extends Activity {
@@ -20,6 +23,8 @@ public void onCreate(Bundle savedInstanceState) {
 super.onCreate(savedInstanceState);
 
 setContentView(R.layout.activity_create);
+
+
 
 //Click this button. it will take you back to the home pagw
 Button button1 = (Button) findViewById(R.id.Home);
@@ -49,6 +54,8 @@ inflater.inflate(R.menu.mymenu, menu);
 return true;
 
 }
+
+
 @Override
 
 public boolean onOptionsItemSelected(MenuItem item) {
@@ -113,6 +120,16 @@ menu.add(1, 3, 2, "Close the file");
 return true;
 
 }
+public void onCreate1(Bundle savedInstanceState) 
+{ 
+ 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_create); 
+		ScrollView sView = (ScrollView)findViewById(R.id.ScrollView03); 
+		// Hide the Scollbar 
+		sView.setVerticalScrollBarEnabled(false); 
+		sView.setHorizontalScrollBarEnabled(false);
+
+  }
 
 
 }
