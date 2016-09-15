@@ -19,10 +19,25 @@
         android:text="Scan Options"
         android:textColor="#000000"
         android:textSize="30dp" />
-
+    
+      
+    
+    <ScrollView
+        android:id="@+id/ScrollView02"
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:layout_weight="0.21" >
+        
+        <TableLayout
+            android:id="@+id/amortization"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+            
+               
+   
     <Button
         android:id="@+id/BarCode"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="64dp"
         android:layout_margin="10dp"
         android:backgroundTint="@android:color/holo_orange_dark"
@@ -35,8 +50,8 @@
 
     <Button
         android:id="@+id/scanner5"
-        android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_width="wrap_content"
+        android:layout_height="64dp"
         android:layout_gravity="center"
         android:layout_margin="10dp"
         android:backgroundTint="@android:color/holo_red_dark"
@@ -52,7 +67,7 @@
 
     <Button
         android:id="@+id/QRCode"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="64dp"
         android:layout_margin="10dp"
         android:layout_marginTop="14dp"
@@ -60,17 +75,22 @@
         android:backgroundTint="@android:color/holo_blue_light"
         android:gravity="center"
         android:onClick="QRCode"
-         android:shadowColor="#1CC2FF"
+        android:shadowColor="#1CC2FF"
         android:text="QRCode"
         android:textSize="18dp" />
-
+  
+          
+    
+    
     <Button
         android:id="@+id/Home"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginLeft="22dp"
+        android:layout_height="64dp"
+        android:layout_margin="10dp"
+        android:layout_marginTop="14dp"
         android:background="@drawable/home"
-        android:text="Home" />
-
-</LinearLayout>
+        android:textSize="18dp"  />
+   
+ </TableLayout>
+</ScrollView>    
+ </LinearLayout> 
