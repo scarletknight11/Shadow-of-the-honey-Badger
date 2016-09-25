@@ -1,101 +1,92 @@
 package com.example.medbox;
 
-import android.app.Activity;
+
+import java.util.List;
+
+import android.app.ListActivity;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
 import android.widget.Toast;
 
-public class Create extends Activity {
-	 
-		String fname,lname,email;
-		SQLiteDatabase db;
-		 TableRow tableRow;
-		   TextView textView,textView1,textView2,textView3,textView4,textView5;
-	    @Override
-	    public void onCreate(Bundle savedInstanceState) {
-	        super.onCreate(savedInstanceState);
-	        setContentView(R.layout.activity_create);
-	        
-	      //Click this it will take you back home
-			Button button1 = (Button) findViewById(R.id.Home);
+public class Create extends ListActivity {
 
-			button1.setOnClickListener(new OnClickListener(){
+	private StudentOperations studentDBoperation;
 
-				 
-				public void onClick(View v) {
-					 Intent i = new Intent(Create.this,  MainActivity.class);
-					 startActivity(i);
-					 Toast.makeText(getApplicationContext(),
-							 "You are Home", Toast.LENGTH_LONG)
-					 .show();
-				}
-				});
-
-	        
-	        db=openOrCreateDatabase("MyDB1",MODE_PRIVATE, null);
-	        db.execSQL("CREATE TABLE IF NOT EXISTS Student(fname VARCHAR,lname VARCHAR,email VARCHAR);");
-	    }
-	public void data(View view)
-	{
-	   
-	  EditText edittext3=(EditText )findViewById(R.id.email);
-	   
-	  email=edittext3.getText().toString();
-	  db.execSQL("INSERT INTO  Student VALUES('"+fname+"','"+lname+"','"+email+"');");
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_create);
 		
+		
+			
+
+
+		studentDBoperation = new StudentOperations(this);
+		studentDBoperation.open();
+
+		List values = studentDBoperation.getAllStudents();
+
+		// Use the SimpleCursorAdapter to show the
+		// elements in a ListView
+		ArrayAdapter adapter = new ArrayAdapter(this,
+				android.R.layout.simple_list_item_1, values);
+		setListAdapter(adapter);
+	}
+
+	public void addUser(View view) {
+
+		ArrayAdapter adapter = (ArrayAdapter) getListAdapter();
+
+		EditText text = (EditText) findViewById(R.id.editText1);
+		Students stud = studentDBoperation.addStudent(text.getText().toString());
+
+		adapter.add(stud);
+
+	}
+
+	public void deleteFirstUser(View view) {
+
+		ArrayAdapter adapter = (ArrayAdapter) getListAdapter();
+		Students stud = null;
+
+		if (getListAdapter().getCount() > 0) {
+			stud = (Students) getListAdapter().getItem(0);
+			studentDBoperation.deleteStudent(stud);
+			adapter.remove(stud);
+		}
+
+	}
+
+	@Override
+	protected void onResume() {
+		studentDBoperation.open();
+		super.onResume();
+	}
+
+	@Override
+	protected void onPause() {
+		studentDBoperation.close();
+		super.onPause();
+	
+	//Click this it will take you back home
+	Button button1 = (Button) findViewById(R.id.Home);
+
+	button1.setOnClickListener(new OnClickListener(){
+
 		 
+		public void onClick(View v) {
+			 Intent i = new Intent(Create.this,  MainActivity.class);
+			 startActivity(i);
+			 Toast.makeText(getApplicationContext(),
+					 "You are Home", Toast.LENGTH_LONG)
+			 .show();
+		}
+		});
+
 	}
-	public void showdata(View view)
-	{
-	    Cursor c=db.rawQuery("SELECT * from Student", null);
-	     int count= c.getCount();
-	    c.moveToFirst();
-	    TableLayout tableLayout = new TableLayout(getApplicationContext());
-	    tableLayout.setVerticalScrollBarEnabled(true);
-	   TableRow tableRow;
-	   TextView textView,textView1,textView2,textView3,textView4,textView5;
-	   tableRow = new TableRow(getApplicationContext());
-	    
-	     
-	    textView5=new TextView(getApplicationContext());
-	  	textView5.setText("Firstname");
-	  	textView5.setTextColor(Color.RED);
-	  	textView5.setTypeface(null, Typeface.BOLD);
-	  	textView5.setPadding(20, 20, 20, 20);
-	  	tableRow.addView(textView5);
-	   tableLayout.addView(tableRow);
-	   
-	     for (Integer j = 0; j < count; j++)
-	     {
-	         tableRow = new TableRow(getApplicationContext());
-	          
-	         textView3 = new TextView(getApplicationContext());
-	         textView3.setText(c.getString(c.getColumnIndex("email")));
-	          
-	         textView3.setPadding(20, 20, 20, 20);
-	          
-	         tableRow.addView(textView3);
-	         tableLayout.addView(tableRow);
-	         c.moveToNext() ;
-	       
-	     }
-	     setContentView(tableLayout);
-	     
-	db.close();
-	}
-	public void close(View view)
-	{
-	System.exit(0);	
-	}
-	}
+}
