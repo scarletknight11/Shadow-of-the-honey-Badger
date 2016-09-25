@@ -1,74 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
- <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|top"
-            android:layout_margin="20dp"
-            android:text="Create Boxes"
-            android:textSize="30dp" />
-            
+    android:layout_height="match_parent"
+    android:backgroundTint="@android:color/holo_orange_light"
+    android:foregroundTint="@android:color/holo_orange_light"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+     
     <EditText
-        android:id="@+id/email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView3"
-        android:layout_alignBottom="@+id/textView3"
-        android:layout_alignParentRight="true"
-        android:ems="10" />
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="87dp"
-        android:layout_toLeftOf="@+id/email"
-        android:onClick="data"
-        android:text="Create" />
-
-    <Button
-        android:id="@+id/button3"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button1"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="18dp"
-        android:onClick="showdata"
-        android:text="Show Table" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/button1"
-        android:layout_alignBottom="@+id/button1"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="54dp"
-        android:onClick="close"
-        android:text="Close" />
-	
-	
-    <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/editText1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="64dp"
-        android:text="Firstname:" />
+        android:layout_alignRight="@+id/deleteBtn"
+        android:ems="30" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/addBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText1"
+    	android:backgroundTint="@android:color/holo_red_dark"
+        android:shadowColor="#A8A8A8"
+        android:onClick="addUser"
+        android:text="Add New" />
+
+    <Button
+        android:id="@+id/deleteBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/addBtn"
+        android:layout_below="@+id/editText1"
+        android:backgroundTint="@android:color/holo_blue_light"
+        android:onClick="deleteFirstUser"
+        android:shadowColor="#1CC2FF"
+        android:text="Delete First" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/editText1"
+        android:layout_alignBottom="@+id/editText1"
+        android:layout_margin="20dp"
+        android:layout_marginLeft="19dp"
+        android:layout_toRightOf="@+id/editText1"
+        android:text="Create Boxes"
+        android:textColor="#000000"
+        android:textSize="16dp" />
 
     <Button
         android:id="@+id/Home"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button2"
-        android:layout_alignTop="@+id/button3"
+        android:layout_height="32dp"
+        android:layout_alignRight="@+id/textView1"
+        android:layout_below="@+id/textView1"
+        android:layout_margin="10dp"
         android:background="@drawable/home"
-        android:text="Home" />
+        android:textSize="18dp" />
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/addBtn"
+        android:backgroundTint="@android:color/holo_green_dark" >
+
+    </ListView>
 
 </RelativeLayout>
